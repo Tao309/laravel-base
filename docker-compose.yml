@@ -1,0 +1,48 @@
+services:
+  db:
+    container_name: laravel-posts-db
+    image: postgres:18
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-laravel}
+      POSTGRES_USER: ${POSTGRES_USER:-laravel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-laravel}
+    volumes:
+      - ./pgdata:/var/lib/postgresql:rw
+    ports:
+      - "5432:5432"
+    networks:
+      - laravel-posts
+
+  php:
+    container_name: laravel-posts-php
+    build:
+      context: ./docker/php-fpm
+    volumes:
+      - ./docker/php-fpm/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./laravel:/var/www/laravel
+      # Фикс для windows (ускорение работы)
+      - /var/www/laravel/vendor
+    networks:
+      - laravel-posts
+
+  nginx:
+    container_name: laravel-posts-nginx
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ./laravel:/var/www/laravel
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - php
+      - db
+    networks:
+      - laravel-posts
+
+volumes:
+  pgdata:
+
+networks:
+  laravel-posts:

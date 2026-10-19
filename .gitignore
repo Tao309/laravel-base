@@ -1,0 +1,9 @@
+# файлы конфигураций IDE
+/.idea
+/pgdata
+/.git/
+/deploy
+/.github/
+.htaccess
+# Project exclude paths
+/laravel/storage/logs/
