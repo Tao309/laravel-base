@@ -10,6 +10,6 @@ services:
     environment:
       XDEBUG_CONFIG: 'idekey=PHPSTORM remote_host=host.docker.internal client_port=7332 
       remote_autostart=1 remote_enable=1 remote_mode=req remote_connect_back=0'
-      PHP_IDE_CONFIG: 'serverName=LaravelPosts'
+      PHP_IDE_CONFIG: 'serverName=Laravel'
     expose:
       - 9003

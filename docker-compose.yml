@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: laravel-posts-db
+    container_name: laravel-db
     image: postgres:18
     restart: always
     environment:
@@ -12,10 +12,10 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - laravel-posts
+      - laravel
 
   php:
-    container_name: laravel-posts-php
+    container_name: laravel-php
     build:
       context: ./docker/php-fpm
     volumes:
@@ -24,10 +24,10 @@ services:
       # Фикс для windows (ускорение работы)
       - /var/www/laravel/vendor
     networks:
-      - laravel-posts
+      - laravel
 
   nginx:
-    container_name: laravel-posts-nginx
+    container_name: laravel-nginx
     build:
       context: ./docker/nginx
     volumes:
@@ -39,7 +39,7 @@ services:
       - php
       - db
     networks:
-      - laravel-posts
+      - laravel
 
 volumes:
   pgdata:

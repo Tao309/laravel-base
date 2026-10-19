@@ -3,7 +3,7 @@ test:
 cover:
 	XDEBUG_MODE=coverage bin/phpunit  --coverage-html="coverage"
 php:
-	docker exec -it laravel-posts-php bash
+	docker exec -it laravel-php bash
 build:
 	docker-compose up -d --build
 up:
