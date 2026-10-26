@@ -23,6 +23,11 @@ RUN apt-get update && apt-get install -y \
 
 #RUN pecl install ${XDEBUG_VERSION} && docker-php-ext-enable xdebug
 
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
+    && docker-php-ext-enable redis
+
 RUN docker-php-ext-install mbstring exif pcntl bcmath gd
 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
