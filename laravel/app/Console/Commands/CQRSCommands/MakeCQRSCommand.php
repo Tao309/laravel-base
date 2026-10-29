@@ -47,7 +47,12 @@ class MakeCQRSCommand extends GeneratorCommand
             '--migration' => true,
             '--seed' => true,
             '--requests' => true,
-            '--controller' => true,
+        ]);
+
+        $this->call('make:controller', [
+            'name' => 'Api/' . $upperName.'Controller',
+            '--model' => $upperName,
+            '--requests' => true,
         ]);
 
         $this->call('make:resource', [
